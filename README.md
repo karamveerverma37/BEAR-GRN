@@ -14,14 +14,16 @@ Using git clone :
 
 Input: User need a inferred GRN from any new method using the input data provided in `INPUT.DATA` dir.
 # Accuracy Tutorial
-##Step 1: use add_grn.py to add the infeered GRN to the BEAR-GRN.
+## Step 1: use add_grn.py to add the infeered GRN to the BEAR-GRN.
+
 `python add_grn.py --dataset K562 --method_name New_method --grn_path /home/jkl/inferred_grn.csv`
 
-##Step 2: Run BEAR-GRN
+## Step 2: Run BEAR-GRN
+
 `Rscript BEAR-GRN.R --metric accuracy --out_dir output`
 
-##Requirements:
-###Python 3.9
-###R/4.3.2
+## Requirements:
+### Python 3.9
+### R/4.3.2
 
 
