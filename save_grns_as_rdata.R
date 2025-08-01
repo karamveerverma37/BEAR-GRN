@@ -8,3 +8,4 @@ RNA$FigR <- read.csv("K562/FigR/K562_filtered_network.csv")
 #add RNA data
 K562$RNA <- RNA
 K562
+#save.image(file="Inferred_GRNs.RData")
