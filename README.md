@@ -16,7 +16,7 @@ This collection contains GRN inference results from **7 established methods** ac
 - **FigR**: Functional inference of gene regulation
 - **TRIPOD**: Three-step regulatory network inference
 - **GRaNIE**: Gene regulatory network inference including enhancers
-
+- **DIRECTNET**: Discover cis-Regulatory Elements and Construct TF regulatory NETwork
 ### Included Datasets
 - **K562**: Human chronic myelogenous leukemia cell line
 - **Macrophage_S1**: Mouse macrophage stimulation condition 1
@@ -310,17 +310,17 @@ We welcome contributions to improve this benchmark collection:
 
 For questions, issues, or contributions:
 - **GitHub Issues**: [Link to repository issues]
-- **Email**: [your.email@institution.edu]
+- **Email**: [yuzun@pennstatehealth.psu.edu ; kkaramveer@pennstatehealth.psu.edu]
 - **Documentation**: See `example_usage.R` for additional examples
 
 ## 🔄 Version History
 
-- **v1.0.0**: Initial release with 7 methods across 7 datasets
+- **v1.0.0**: Initial release with 8 methods across 7 datasets
 - **v1.1.0**: [Future] Additional methods and improved documentation
 
 ## 🙏 Acknowledgments
 
 This benchmark collection builds upon the excellent work of the developers of:
-CellOracle, SCENIC+, Pando, LINGER, FigR, TRIPOD, and GRaNIE methods.
+CellOracle, SCENIC+, Pando, LINGER, FigR, TRIPOD, DIRECTNET and GRaNIE methods.
 
 Special thanks to the single-cell genomics community for providing high-quality datasets and ground truth regulatory networks.
