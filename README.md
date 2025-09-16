@@ -77,13 +77,15 @@ dataset_collection/
 
 | Method | TF Column | Target Column | Score Column | File Format |
 |--------|-----------|---------------|--------------|-------------|
-| CellOracle | `source` | `target` | `coef_mean` | TSV |
+| CellOracle | `source` | `target` | `coef_mean` | CSV |
 | SCENIC+ | `Source` | `Target` | `Score` | TSV |
-| Pando | `tf` | `target` | `estimate` | TSV |
+| Pando | `tf` | `target` | `estimate` | CSV |
 | LINGER | `Source` | `Target` | `Score` | TSV |
-| FigR | `Motif` | `DORC` | `Score` | TSV |
-| TRIPOD | `TF` | `gene` | `abs_coef` | TSV |
-| GRaNIE | `TF.name` | `gene.name` | `TF_gene.r` | TSV |
+| FigR | `Motif` | `DORC` | `Score` | CSV |
+| TRIPOD | `TF` | `gene` | `abs_coef` | CSV |
+| GRaNIE | `TF.name` | `gene.name` | `TF_gene.r` | CSV |
+| DIRECTNET | `TF` | `Gene` | `NA` | CSV |
+
 
 ### Ground Truth Files
 - **Format**: TSV (tab-separated values)
