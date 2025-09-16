@@ -6,11 +6,11 @@ A comprehensive collection of Gene Regulatory Network (GRN) inference results fr
 
 ## 📊 Dataset Overview
 
-This collection contains GRN inference results from **7 established methods** across **7 single-cell datasets**, along with corresponding ground truth regulatory networks for rigorous benchmarking.
+This collection contains GRN inference results from **8 established methods** across **7 single-cell datasets**, along with corresponding ground truth regulatory networks for rigorous benchmarking.
 
 ### Included Methods
 - **CellOracle**: Dynamic GRN inference from scRNA-seq
-- **SCENIC+**: Multi-omics GRN inference 
+- **SCENIC+**: Multi-omics GRN inference (extention of Single-Cell rEgulatory Network Inference and Clustering)
 - **Pando**: Lineage-informed GRN reconstruction
 - **LINGER**: Lifelong learning for GRN inference
 - **FigR**: Functional inference of gene regulation
