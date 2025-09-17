@@ -431,12 +431,11 @@ results <- benchmark_new_method_stability(
 #### Example 4: Generate ROC and PR Curves for All Methods
 
 ```r
-# Generate comprehensive ROC and PR curves
+# Generate comprehensive ROC and PR curves 
 roc_pr_results <- reproduce_ROC_PR_plots(
-  input_dir = "DATASETS",
+  input_dir = "INFERRED.GRNS",
   output_dir = "ROC_PR_Results",
-  ground_truth_dir = "GROUND_TRUTHS",
-  use_filtered_approach = TRUE
+  ground_truth_dir = "GROUND.TRUTHS"
 )
 
 # Access results for specific dataset
@@ -449,9 +448,9 @@ print(k562_results$results)  # Performance metrics
 ```r
 # Compute precision/recall/F1 for filtered networks (top 10K edges)
 metrics_results <- reproduce_early_metrics(
-  input_dir = "DATASETS",
+  input_dir = "INFERRED.GRNS",
   output_dir = "filtered_metrics_results",
-  ground_truth_dir = "GROUND_TRUTHS",
+  ground_truth_dir = "GROUND.TRUTHS",
   max_edges = 10000
 )
 
