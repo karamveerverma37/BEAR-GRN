@@ -1,9 +1,9 @@
 # Benchmarking GRN Inference Method using Single-cell Multiomics
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17087863.svg)](https://doi.org/10.5281/zenodo.17087863)
 
-A comprehensive collection of Gene Regulatory Network (GRN) inference results from multiple state-of-the-art methods across various single-cell multiomics datasets, designed for benchmarking and comparative analysis of new GRN inference methods. Available as both downloadable datasets and an R package (BEAR-GRN).
+A comprehensive collection of Gene Regulatory Network (GRN) inference results from multiple state-of-the-art methods across various single-cell multiomics datasets, designed for benchmarking and comparative analysis of new GRN inference methods. Available as both downloadable datasets and an R package (BEAR-GRN). 
 
-                                 <img width="600" height="600" alt="Untitled design" src="https://github.com/user-attachments/assets/01176d49-ab92-4344-a3de-ce2536f68458" />               
+  <img width="600" height="600" alt="Untitled design" src="https://github.com/user-attachments/assets/01176d49-ab92-4344-a3de-ce2536f68458" />
 
 
 ## 📊 Dataset Overview
