@@ -38,8 +38,8 @@ The complete analysis pipeline is available as the **BEAR-GRN** R package, which
 
 ### Included Datasets
 - **K562**: Human chronic myelogenous leukemia cell line
-- **Macrophage_S1**: Mouse macrophage stimulation condition 1
-- **Macrophage_S2**: Mouse macrophage stimulation condition 2  
+- **Macrophage_S1**: Mouse macrophage sample 1
+- **Macrophage_S2**: Mouse macrophage sample 2  
 - **mESC_E7.5_rep1**: Mouse embryonic stem cells E7.5 replicate 1
 - **mESC_E7.5_rep2**: Mouse embryonic stem cells E7.5 replicate 2
 - **mESC_E8.5_rep1**: Mouse embryonic stem cells E8.5 replicate 1
@@ -175,19 +175,22 @@ Analyzes network stability across replicates using Jaccard Index.
 
 ## 🚀 Installation and Setup
 
-### Option 1: R Package Installation (Recommended)
+### Step 1: R Package Installation (Recommended)
 
 ```r
 # Install BEAR-GRN R package (if available from repository)
 # install.packages("devtools")
-# devtools::install_github("your-repo/BEAR-GRN")
-# library(BEAR.GRN)
+# install.packages("BEARGRN") (install from CRAN)
+#    or
+# devtools::install_github("UzunLab/BEAR-GRN") (Install from Github Repo)
+# devtools::install_github("karamveerverma37/BEAR-GRN") (Install developer version)
+# library(BEARGRN)
 
 # Or install from local source
 # install.packages("path/to/BEAR-GRN", repos = NULL, type = "source")
 ```
 
-### Option 2: Manual Download and Setup
+### Step 2: Data Download and Setup
 
 #### 1. Download Data from Zenodo
 
@@ -252,21 +255,14 @@ wget https://zenodo.org/record/XXXXX/files/INPUT.DATA.STABILITY.zip
 for file in *.zip; do unzip "$file" && rm "$file"; done
 ```
 
-### 3. Load Analysis Functions
+### 3. Load Analysis Functions using BEARGRN
 
 ```r
 # If using R package
-library(BEAR.GRN)
+library(BEARGRN)
 
-# Or load individual functions from downloaded scripts
-source("path/to/BEAR-GRN/R/benchmark_new_method_early_metrics.R")
-source("path/to/BEAR-GRN/R/benchmark_new_method_filtered.R")
-source("path/to/BEAR-GRN/R/benchmark_new_method_stability.R")
-source("path/to/BEAR-GRN/R/reproduce_ROC_PR.R")
-source("path/to/BEAR-GRN/R/reproduce_early_metrics.R")
-source("path/to/BEAR-GRN/R/reproduce_stability.R")
 
-# Load required libraries
+# If installation fails, install required libraries
 required_packages <- c("readr", "dplyr", "pROC", "PRROC", "ggplot2", 
                       "stringr", "tibble", "RColorBrewer", "plotrix",
                       "tidyr", "purrr", "viridis", "scales")
@@ -279,9 +275,9 @@ lapply(required_packages, function(x) {
 })
 ```
 
-## 🧬 Developing New Methods with INPUT.DATA
+## 🧬 Inferring GRN from New Methods with INPUT.DATA
 
-### Using Original Multiomics Data
+### Using Preprocessed Multiomics Data
 
 The `INPUT.DATA` repository contains the preprocessed multiomics datasets used to generate all GRN inferences. This allows you to:
 
@@ -291,59 +287,14 @@ The `INPUT.DATA` repository contains the preprocessed multiomics datasets used t
 
 #### Data Format and Contents
 
-Each dataset directory contains:
-- **scRNA-seq data**: Gene expression count matrices
-- **scATAC-seq data**: Chromatin accessibility peak matrices  
-- **Cell metadata**: Cell type annotations and sample information
-- **Gene metadata**: Gene symbols, coordinates, and regulatory annotations
-- **Peak metadata**: Genomic coordinates and regulatory region annotations
+Each dataset directory contains the following data for each method:
+- **scRNA-seq data**: Gene expression count matrices in Gene by Cell format
+- **scATAC-seq data**: Chromatin accessibility peak matrices in Peak by Cell format
 
-#### Example: Training a New Method
-
-```r
-# Load multiomics data for K562
-load_multiomics_data <- function(dataset_name = "K562", data_dir = "INPUT.DATA") {
-  
-  dataset_path <- file.path(data_dir, dataset_name)
-  
-  # Load scRNA-seq data
-  rna_counts <- readRDS(file.path(dataset_path, "rna_counts.rds"))
-  rna_metadata <- read.csv(file.path(dataset_path, "rna_metadata.csv"))
-  
-  # Load scATAC-seq data  
-  atac_counts <- readRDS(file.path(dataset_path, "atac_counts.rds"))
-  atac_metadata <- read.csv(file.path(dataset_path, "atac_metadata.csv"))
-  
-  # Load regulatory annotations
-  gene_info <- read.csv(file.path(dataset_path, "gene_info.csv"))
-  peak_info <- read.csv(file.path(dataset_path, "peak_info.csv"))
-  
-  return(list(
-    rna = list(counts = rna_counts, metadata = rna_metadata),
-    atac = list(counts = atac_counts, metadata = atac_metadata),
-    genes = gene_info,
-    peaks = peak_info
-  ))
-}
-
-# Example: Use data with your method
-k562_data <- load_multiomics_data("K562")
-
-# Your GRN inference method here
-# my_grn <- your_method(
-#   rna_data = k562_data$rna$counts,
-#   atac_data = k562_data$atac$counts,
-#   gene_info = k562_data$genes,
-#   peak_info = k562_data$peaks
-# )
-
-# Save results in standard format for benchmarking
-# write_tsv(my_grn, "my_method_k562_results.tsv")
-```
 
 #### Data Preprocessing Pipeline
 
-The `inst/scripts/DATA.PREPROCESSING/` directory contains the preprocessing steps:
+The `inst/scripts/DATA.PREPROCESSING/` directory contains the scripts used for raw multiomic data preprocessing:
 
 ```r
 # Reproduce the preprocessing pipeline
@@ -355,38 +306,8 @@ source("inst/scripts/DATA.PREPROCESSING/Step4.subsample_cells.R")      # Subsamp
 
 ### Generating Stability Data
 
-Use `INPUT.DATA.STABILITY` to create multiple network replicates:
+Use `INPUT.DATA.STABILITY` to create multiple network replicates to benchmark new method for Stability
 
-```r
-# Example: Generate multiple GRN replicates for stability analysis
-generate_stability_networks <- function(dataset_name = "K562", 
-                                       n_replicates = 5,
-                                       data_dir = "INPUT.DATA.STABILITY") {
-  
-  results <- list()
-  
-  for (i in 1:n_replicates) {
-    cat("Generating replicate", i, "of", n_replicates, "\n")
-    
-    # Load replicate data (different cell subsets or bootstrap samples)
-    replicate_data <- load_stability_replicate(dataset_name, replicate = i, data_dir)
-    
-    # Run your method
-    # grn_replicate <- your_method(replicate_data)
-    
-    # Save replicate
-    # output_file <- paste0("my_method_", dataset_name, "_rep", i, ".tsv")
-    # write_tsv(grn_replicate, output_file)
-    
-    # results[[i]] <- grn_replicate
-  }
-  
-  return(results)
-}
-
-# Generate replicates
-# k562_replicates <- generate_stability_networks("K562", n_replicates = 10)
-```
 
 ### Reference Method Implementations
 
@@ -398,65 +319,15 @@ The `inst/scripts/GRN.INFERENCE/` directory provides reference implementations f
 - **FigR**: `FigR.R`
 - **GRaNIE**: `GRaNIE_singleCell.R`
 - **Pando**: `Pando.R`
-- **SCENIC+**: Available in subdirectory
+- **SCENIC+**: 
+- **LINGER**:
 - **STREAM**: `STREAM2.R`
 - **TRIPOD**: `TRIPOD_Final.R`, `make_uniq_grn.R`
 - **scGLUE**: `run_all.sh`, `step1_scGLUE.py` to `step4_scGLUE.py`
 
-#### Example: Run Existing Method
+Once you have installed the BEARGRN and have downloaded the inferred GRNs and ground truth GRNs.
+Copy these files to your working directory
 
-```r
-# Example: Run FigR on your data
-source("inst/scripts/GRN.INFERENCE/FigR/FigR.R")
-
-# The script contains the complete pipeline:
-# 1. Data loading and preprocessing
-# 2. Peak-gene linking
-# 3. TF-target prediction  
-# 4. Network scoring and filtering
-
-# Modify the script to use your own data or different parameters
-```
-
-### Complete Workflow: New Method Development
-
-```r
-# Step 1: Develop and test your method
-dataset_name <- "K562"
-input_data <- load_multiomics_data(dataset_name)
-
-# Your method development here
-# new_grn <- develop_new_method(input_data)
-
-# Step 2: Generate network for benchmarking  
-# write_tsv(new_grn, paste0("MyMethod_", dataset_name, ".tsv"))
-
-# Step 3: Generate stability replicates (optional)
-# stability_networks <- generate_stability_networks(dataset_name, n_replicates = 10)
-
-# Step 4: Benchmark against existing methods
-benchmark_results <- benchmark_new_method_early_metrics(
-  new_grn_file = paste0("MyMethod_", dataset_name, ".tsv"),
-  dataset_name = dataset_name,
-  tf_column = "TF",
-  target_column = "Gene", 
-  score_column = "Score",
-  method_name = "MyMethod",
-  input_dir = "INFERRED.GRNS",
-  ground_truth_dir = "GROUND.TRUTHS"
-)
-
-# Step 5: Assess stability (if replicates available)
-# stability_results <- benchmark_new_method_stability(
-#   base_dir = "STABILITY_GRNS",
-#   sample_dirs = dataset_name,
-#   methods = c("CellOracle", "FigR"),
-#   method_name = "MyMethod", 
-#   grn_dir = "path/to/stability/replicates"
-# )
-
-print(benchmark_results$ranking)
-```
 
 ## 📊 Analysis Examples
 
