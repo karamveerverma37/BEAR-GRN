@@ -763,29 +763,6 @@ If you use this benchmark collection or the BEAR-GRN package in your research, p
 }
 ```
 
-### Individual Data Repository Citations
-
-If using specific data repositories, please cite:
-
-```bibtex
-@dataset{inferred_grns_2024,
-  title={Pre-computed Gene Regulatory Network Inference Results},
-  publisher={Zenodo},
-  doi={10.5281/zenodo.XXXXX}
-}
-
-@dataset{input_data_2024,
-  title={Multiomics Input Data for GRN Inference},
-  publisher={Zenodo}, 
-  doi={10.5281/zenodo.XXXXX}
-}
-
-@dataset{stability_data_2024,
-  title={Gene Regulatory Network Stability Analysis Data},
-  publisher={Zenodo},
-  doi={10.5281/zenodo.XXXXX}
-}
-```
 
 ## 🌟 Complete Ecosystem Overview
 
