@@ -3,7 +3,7 @@
 
 A comprehensive collection of Gene Regulatory Network (GRN) inference results from multiple state-of-the-art methods across various single-cell multiomics datasets, designed for benchmarking and comparative analysis of new GRN inference methods. Available as both downloadable datasets and an R package (BEAR-GRN). 
 
-  <img width="400" height="400" alt="Untitled design" src="https://github.com/user-attachments/assets/01176d49-ab92-4344-a3de-ce2536f68458" />
+  <img width="300" height="300" alt="BEARGRN logo" src="https://github.com/user-attachments/assets/01176d49-ab92-4344-a3de-ce2536f68458" />
 
 
 ## 📊 Dataset Overview
