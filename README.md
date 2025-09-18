@@ -140,18 +140,31 @@ BEAR-GRN/
 ## 📋 Analysis Functions Overview
 
 This benchmark collection includes four main analysis functions:
+# To reproduce the benchmarking results 
 
-### 1. `benchmark_new_method()` - New Method Benchmarking
-Evaluates new GRN inference methods against existing methods and ground truth.
-
-### 2. `reproduce_ROC_PR_plots()` - ROC/PR Curve Analysis  
+### 1. `reproduce_ROC_PR_plots()` - ROC/PR Curve Analysis  
 Generates comprehensive ROC and Precision-Recall curves for all methods across datasets.
 
-### 3. `reproduce_early_metrics()` - Top-K Edge Analysis
+### 2. `reproduce_early_metrics()` - Top-K Edge Analysis
 Computes precision, recall, and F1-scores using filtered networks (top 10K edges).
 
-### 4. `analyze_network_stability()` - Stability Analysis
-Analyzes network stability across replicates using Jaccard Index.
+### 3. `analyze_network_stability()` - Stability Analysis
+Analyzes network stability across subsamples using Jaccard Index.
+
+# To evaluate a new method against benchmarked methods
+
+### 1. `benchmark_new_method()` - New method ROC/PR Curve Analysis
+Generates comprehensive ROC and Precision-Recall curves for all methods across datasets including new method.
+
+### 2. `benchmark_new_method_early_metrics()` - Early metrics analysis for new method Top-K Edge Analysis
+Computes precision, recall, and F1-scores using filtered networks (top 10K edges) including new method.
+
+### 3. `benchmark_new_method_stability()` - Stability Analysis for New menthod
+Analyzes network stability across subsamples using Jaccard Index including new method.
+
+
+
+
 
 ## 📋 File Formats and Column Structure
 
@@ -291,39 +304,9 @@ Each dataset directory contains the following data for each method:
 - **scRNA-seq data**: Gene expression count matrices in Gene by Cell format
 - **scATAC-seq data**: Chromatin accessibility peak matrices in Peak by Cell format
 
-
-#### Data Preprocessing Pipeline
-
-The `inst/scripts/DATA.PREPROCESSING/` directory contains the scripts used for raw multiomic data preprocessing:
-
-```r
-# Reproduce the preprocessing pipeline
-source("inst/scripts/DATA.PREPROCESSING/Step1.QC.R")          # Quality control
-source("inst/scripts/DATA.PREPROCESSING/Step2.filter_cells_genes.R")  # Filtering
-source("inst/scripts/DATA.PREPROCESSING/Step3.select_common_cells.R")  # Cell matching
-source("inst/scripts/DATA.PREPROCESSING/Step4.subsample_cells.R")      # Subsampling
-```
-
 ### Generating Stability Data
 
 Use `INPUT.DATA.STABILITY` to create multiple network replicates to benchmark new method for Stability
-
-
-### Reference Method Implementations
-
-The `inst/scripts/GRN.INFERENCE/` directory provides reference implementations for all methods:
-
-#### Available Method Scripts
-- **CellOracle**: `SCRIPT.CELLORACLE`, `run_ATAC_RNA.sh`
-- **DIRECTNET**: `New.R`  
-- **FigR**: `FigR.R`
-- **GRaNIE**: `GRaNIE_singleCell.R`
-- **Pando**: `Pando.R`
-- **SCENIC+**: 
-- **LINGER**:
-- **STREAM**: `STREAM2.R`
-- **TRIPOD**: `TRIPOD_Final.R`, `make_uniq_grn.R`
-- **scGLUE**: `run_all.sh`, `step1_scGLUE.py` to `step4_scGLUE.py`
 
 Once you have installed the BEARGRN and have downloaded the inferred GRNs and ground truth GRNs.
 Copy these files to your working directory
@@ -654,6 +637,34 @@ The analysis functions calculate:
 - **Median JI**: Median Jaccard Index across all pairwise comparisons
 - **Top vs Random**: Comparison of stability in top-ranked vs random edges
 
+### Reference Method Implementations
+# If users want to infer GRNs using other dataset we provide the script used for 10 GRN inference methods (Note: Requires many dependency installation)
+The `inst/scripts/GRN.INFERENCE/` directory provides reference implementations for all methods:
+
+#### Available Method Scripts
+- **CellOracle**: `SCRIPT.CELLORACLE`, `run_ATAC_RNA.sh`
+- **DIRECTNET**: `New.R`
+- **FigR**: `FigR.R`
+- **GRaNIE**: `GRaNIE_singleCell.R`
+- **Pando**: `Pando.R`
+- **SCENIC+**:
+- **LINGER**:
+- **STREAM**: `STREAM2.R`
+- **TRIPOD**: `TRIPOD_Final.R`, `make_uniq_grn.R`
+- **scGLUE**: `run_all.sh`, `step1_scGLUE.py` to `step4_scGLUE.py`
+
+#### Data Preprocessing Pipeline
+# If users want to use their own data for GRN inference the data can be processed using the following scripts/parameters
+The `inst/scripts/DATA.PREPROCESSING/` directory contains the scripts used for raw multiomic data preprocessing:
+
+```r
+# Reproduce the preprocessing pipeline
+source("inst/scripts/DATA.PREPROCESSING/Step1.QC.R")          # Quality control
+source("inst/scripts/DATA.PREPROCESSING/Step2.filter_cells_genes.R")  # Filtering
+source("inst/scripts/DATA.PREPROCESSING/Step3.select_common_cells.R")  # Cell matching
+source("inst/scripts/DATA.PREPROCESSING/Step4.subsample_cells.R")      # Subsampling
+```
+
 ## 🔧 Requirements
 
 ### R Version
@@ -682,9 +693,9 @@ install.packages(c(
 
 Ground truth regulatory networks are derived from:
 - ChIP-seq experiments
-- Perturbation studies  
-- Literature-curated databases
-- Experimental validation studies
+- BEELINE  
+- Literature-curated databases (ChIP-Atlas, ESCAPE, ENCODE, CistromeDB)
+- Experimental knockout validation studies (KnockDB, ESCAPE)
 
 Each ground truth file contains high-confidence regulatory interactions specific to the cell type and experimental condition.
 
@@ -692,38 +703,17 @@ Each ground truth file contains high-confidence regulatory interactions specific
 
 ### For New Method Developers
 
-#### Complete Evaluation Workflow
-1. **Start with `benchmark_new_method_early_metrics()`** to get practical performance metrics (P/R/F1) and method ranking
-2. **Use `benchmark_new_method()`** for comprehensive ROC/PR curve analysis and AUROC/AUPRC comparison
-3. **Apply `benchmark_new_method_stability()`** if you have multiple network replicates to assess reproducibility
-4. **Use `debug_network_files()`** if you encounter file reading issues
-
-#### Quick Assessment Workflow  
-1. **`benchmark_new_method_early_metrics()`** - Fast evaluation with clear ranking
-2. **`benchmark_new_method()`** - Detailed performance curves if needed
-
-### For Comparative Studies
-
-#### Comprehensive Analysis
+### Complete Evaluation Workflow
+#### Existing Method Assessment
 1. **Use `reproduce_ROC_PR_plots()`** for comprehensive method comparison across all datasets
 2. **Apply `reproduce_early_metrics()`** for practical performance assessment with lollipop visualizations
 3. **Combine with `analyze_network_stability()`** for robustness evaluation across methods
 
-#### Focused Analysis
-1. **Start with filtered metrics** (`reproduce_early_metrics()`) for practical insights
-2. **Examine ROC/PR curves** (`reproduce_ROC_PR_plots()`) for detailed performance characteristics
-
-### For Method Validation
-
-#### New Method Validation
-1. **Benchmark against existing methods** using `benchmark_new_method_early_metrics()` for quick validation
-2. **Detailed curve analysis** with `benchmark_new_method()` for publication-quality results  
-3. **Stability assessment** with `benchmark_new_method_stability()` for reproducibility claims
-
-#### Existing Method Assessment
-1. **Start with filtered metrics** to understand practical performance on top edges
-2. **Examine ROC/PR curves** for detailed performance characteristics
-3. **Assess stability** across replicates to ensure reproducibility
+#### For New Method Developers
+1. **Start with `benchmark_new_method_early_metrics()`** to get practical performance metrics (P/R/F1) and method ranking
+2. **Use `benchmark_new_method()`** for comprehensive ROC/PR curve analysis and AUROC/AUPRC comparison
+3. **Apply `benchmark_new_method_stability()`** if you have multiple network replicates to assess reproducibility
+4. **Use `debug_network_files()`** if you encounter file reading issues
 
 ### Function Selection Guide
 
@@ -1109,4 +1099,5 @@ Check that your method's column names match the expected format in the method-sp
 
 #### Empty Results  
 Ensure ground truth files exist and contain the expected `Source` and `Target` columns.
+
 
