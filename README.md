@@ -746,9 +746,9 @@ If you use this benchmark collection or the BEAR-GRN package in your research, p
 ```bibtex
 @software{bear_grn_2024,
   title={BEAR-GRN: Benchmarking and Evaluation of Automated Regulatory Gene Networks},
-  author={Your Name and Collaborators},
+  author={Karamveer Karamveer and Yasin Uzun},
   year={2024},
-  url={https://github.com/your-repo/BEAR-GRN}
+  url={https://github.com/UzunLab/BEAR-GRN}
 }
 ```
 
