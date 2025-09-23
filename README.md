@@ -192,7 +192,7 @@ Analyzes network stability across subsamples using Jaccard Index including new m
 
 ```r
 # Install BEAR-GRN R package 
- install.packages("devtools")
+install.packages("devtools")
 devtools::install_github("UzunLab/BEAR-GRN") (Install from Github Repo)
 # or
 devtools::install_github("karamveerverma37/BEAR-GRN") (Install developer version)
