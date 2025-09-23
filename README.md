@@ -648,8 +648,8 @@ The `inst/scripts/GRN.INFERENCE/` directory provides reference implementations f
 - **FigR**: `FigR.R`
 - **GRaNIE**: `GRaNIE_singleCell.R`
 - **Pando**: `Pando.R`
-- **SCENIC+**:
-- **LINGER**:
+- **SCENIC+**: https://github.com/emoeller80281/SCENIC_PLUS ; https://github.com/emoeller80281/scenicplus_src
+- **LINGER**: https://github.com/emoeller80281/LINGER
 - **STREAM**: `STREAM2.R`
 - **TRIPOD**: `TRIPOD_Final.R`, `make_uniq_grn.R`
 - **scGLUE**: `run_all.sh`, `step1_scGLUE.py` to `step4_scGLUE.py`
