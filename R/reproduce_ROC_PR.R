@@ -375,7 +375,8 @@ reproduce_ROC_PR_plots <- function(input_dir,
     
     # Save plots
     ggsave(file.path(dataset_output_dir, "ROC_plot.png"), plot = roc_plot, width = 8, height = 6, dpi = 300)
-    ggsave(file.path(dataset_output_dir, "ROC_plot.pdf"), plot = roc_plot, width = 8, height = 6)
+    ggsave(file.path(dataset_output_dir, "ROC_plot.pdf"), plot = roc_plot, width = 8, height = 6, device = "pdf")
+    ggsave(file.path(dataset_output_dir, "ROC_plot.eps"), plot = roc_plot, width = 8, height = 6, device = "eps")
     
     # Create PR gap plot
     create_pr_gap_plot(combined_pr = combined_pr, results = results, method_colors = method_colors,
