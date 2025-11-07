@@ -114,7 +114,8 @@ reproduce_early_metrics <- function(input_dir,
     "E7.5_rep1" = "filtered_RN111_E7.5_rep1.tsv",
     "E7.5_rep2" = "filtered_RN111_E7.5_rep2.tsv",
     "E8.5_rep1" = "filtered_RN111_E8.5_rep1.tsv",
-    "E8.5_rep2" = "filtered_RN111_E8.5_rep2.tsv"
+    "E8.5_rep2" = "filtered_RN111_E8.5_rep2.tsv",
+    "iPS" = "filtered_RN000_iPS.tsv"
   )
   
   # Auto-detect datasets from input directory
@@ -346,7 +347,7 @@ reproduce_early_metrics <- function(input_dir,
   #dataset_order <- unique(plot_data$Dataset)
   #plot_data$Dataset <- factor(plot_data$Dataset, levels = dataset_order)
   # Set custom dataset order
-  desired_order <- c("Macrophage_S1", "Macrophage_S2", "K562", "E7.5_rep1", "E7.5_rep2", "E8.5_rep1", "E8.5_rep2")
+  desired_order <- c("Macrophage_S1", "Macrophage_S2", "K562", "iPS", "E7.5_rep1", "E7.5_rep2", "E8.5_rep1", "E8.5_rep2")
   available_datasets <- unique(plot_data$Dataset)
   dataset_order <- intersect(desired_order, available_datasets)
   plot_data$Dataset <- factor(plot_data$Dataset, levels = dataset_order)
@@ -387,7 +388,7 @@ reproduce_early_metrics <- function(input_dir,
         aes(color = Method),
         shape = 16,
         position = position_dodge(width = 0.8),
-        size = 4.5,
+        size = 6,
         alpha = 0.9
       ) +
       scale_color_manual(values = method_colors) +
