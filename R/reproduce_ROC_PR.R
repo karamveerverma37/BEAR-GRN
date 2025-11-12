@@ -90,7 +90,7 @@ reproduce_ROC_PR_plots <- function(input_dir,
   datasets <- list(
     "K562" = "filtered_RN117_K562.tsv",
     "Macrophage_S1" = "filtered_RN204_Buffer1.tsv",
-    "Macrophage_S2" = "filtered_RN204_Buffer1.tsv",
+    "Macrophage_S2" = "filtered_RN204_Buffer2.tsv",
     "mESC_E7.5_rep1" = "filtered_RN111_E7.5_rep1.tsv",
     "mESC_E7.5_rep2" = "filtered_RN111_E7.5_rep2.tsv",
     "mESC_E8.5_rep1" = "filtered_RN111_E8.5_rep1.tsv",
