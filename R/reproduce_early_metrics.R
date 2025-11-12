@@ -103,6 +103,7 @@ reproduce_early_metrics <- function(input_dir,
   }
   
   # Dataset to ground truth mapping
+  #Updated the Mac2 GT
   datasets_mapping <- list(
     "K562" = "filtered_RN117_K562.tsv",
     "Macrophage_S1" = "filtered_RN204_Buffer1.tsv",
