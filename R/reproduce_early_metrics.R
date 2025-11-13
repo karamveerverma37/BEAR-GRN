@@ -375,7 +375,7 @@ reproduce_early_metrics <- function(input_dir,
     
     # Compute dynamic y-axis limit with 10% buffer, capped at 1
     max_score <- max(df_metric$Score, na.rm = TRUE)
-    y_limit <- min(1, max(0.02, round(max_score * 1.1, 5)))
+    y_limit <- min(1, max(0.04, round(max_score * 1.1, 4)))
     
     p_lollipop <- ggplot(df_metric, aes(x = Dataset, y = Score)) +
       geom_segment(
@@ -396,7 +396,7 @@ reproduce_early_metrics <- function(input_dir,
       scale_y_continuous(
         limits = c(0, y_limit),
         expand = expansion(mult = c(0, 0.02)),
-        labels = scales::number_format(accuracy = 0.01)
+        labels = scales::number_format(accuracy = 0.001)
       ) +
       scale_x_discrete(expand = expansion(add = c(1.5, 1.5))) +
       labs(
