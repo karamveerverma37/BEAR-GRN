@@ -122,7 +122,8 @@ benchmark_new_method <- function(dataset_name,
     "mESC_E7.5_rep2" = "filtered_RN111_E7.5_rep2.tsv",
     "mESC_E8.5_rep1" = "filtered_RN111_E8.5_rep1.tsv",
     "mESC_E8.5_rep2" = "filtered_RN111_E8.5_rep2.tsv",
-    "iPS"            = "filtered_RN000_iPS.tsv"
+    "iPS"            = "filtered_RN000_iPS.tsv",
+    "Naive_mESC"     = "filtered_RN111_Naive_mESC.tsv"
   )
   
   # Determine ground truth file

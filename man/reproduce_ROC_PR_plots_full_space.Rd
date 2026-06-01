@@ -33,13 +33,13 @@ generates ROC and PR plots, and saves results to CSV files.
 \examples{
 \dontrun{
 # Basic usage - auto-detect everything
-results <- reproduce_ROC_PR_plots(
+results <- reproduce_ROC_PR_plots_full_space(
   input_dir = "INFERRED.GRNS",
   output_dir = "Results"
 )
 
 # With custom ground truth directory
-results <- reproduce_ROC_PR_plots(
+results <- reproduce_ROC_PR_plots_full_space(
   input_dir = "my_data",
   output_dir = "my_results",
   ground_truth_dir = "my_ground_truths"

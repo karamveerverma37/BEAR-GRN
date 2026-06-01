@@ -34,13 +34,13 @@ utils::globalVariables(c(
 #' @examples
 #' \dontrun{
 #' # Basic usage - auto-detect everything
-#' results <- reproduce_ROC_PR_plots(
+#' results <- reproduce_ROC_PR_plots_full_space(
 #'   input_dir = "INFERRED.GRNS",
 #'   output_dir = "Results"
 #' )
 #' 
 #' # With custom ground truth directory
-#' results <- reproduce_ROC_PR_plots(
+#' results <- reproduce_ROC_PR_plots_full_space(
 #'   input_dir = "my_data",
 #'   output_dir = "my_results",
 #'   ground_truth_dir = "my_ground_truths"
@@ -70,7 +70,8 @@ reproduce_ROC_PR_plots_full_space <- function(input_dir,
       "LINGER",     "Source",    "Target",    "Score",
       "FigR",       "Motif",     "DORC",      "Score",
       "TRIPOD",     "TF",        "gene",      "abs_coef",
-      "GRaNIE",     "TF.name",   "gene.name", "TF_gene.r"
+      "GRaNIE",     "TF.name",   "gene.name", "TF_gene.r",
+      "Pando_xgb",  "tf",        "target",    "corr"
     )
   }
   
@@ -93,7 +94,8 @@ reproduce_ROC_PR_plots_full_space <- function(input_dir,
     "mESC_E7.5_rep2" = "filtered_RN111_E7.5_rep2.tsv",
     "mESC_E8.5_rep1" = "filtered_RN111_E8.5_rep1.tsv",
     "mESC_E8.5_rep2" = "filtered_RN111_E8.5_rep2.tsv",
-    "iPS"            = "filtered_RN000_iPS.tsv"
+    "iPS"            = "filtered_RN000_iPS.tsv",
+    "Naive_mESC"     = "filtered_RN111_Naive_mESC.tsv"
   )
   
   # ---------------------------------------------------------------------------
@@ -518,12 +520,12 @@ reproduce_ROC_PR_plots_full_space <- function(input_dir,
       gt_files <- list.files(ground_truth_dir,
                              pattern    = paste0(".*", dataset_name, ".*\\.tsv$"),
                              full.names = TRUE)
-      if (length(gt_files) == 0) {
-        gt_files <- list.files(ground_truth_dir, pattern = "\\.tsv$", full.names = TRUE)
-        if (length(gt_files) > 0) gt_files[1] else NULL
-      } else {
-        gt_files[1]
-      }
+      #if (length(gt_files) == 0) {
+        #gt_files <- list.files(ground_truth_dir, pattern = "\\.tsv$", full.names = TRUE)
+      if (length(gt_files) > 0) gt_files[1] else NULL
+      #} else {
+      #  gt_files[1]
+      #}
     }
     
     if (is.null(ground_truth_file) || !file.exists(ground_truth_file)) {
